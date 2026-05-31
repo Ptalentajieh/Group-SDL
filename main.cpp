@@ -9,20 +9,20 @@ int main(int argc, char* argv[])
     SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
 
     // --- Load background brick texture ---
-    SDL_Surface* sBg = IMG_Load("C:/Users/talen/Downloads/SDL_Base_Project/SDL_Base_Project/YOUR_BRICK_TEXTURE.png");
+    SDL_Surface* sBg = IMG_Load("C:/Users/talen/Downloads/SDL_Base_Project/SDL_Base_Project/a.png");
     SDL_Texture* texBg = SDL_CreateTextureFromSurface(renderer, sBg);
     SDL_DestroySurface(sBg);
 
     // --- Load image textures ---
-    SDL_Surface* s0 = IMG_Load("C:/Users/talen/Downloads/SDL_Base_Project/SDL_Base_Project/Screenshot 2026-04-22 205608.png");
+    SDL_Surface* s0 = IMG_Load("C:/Users/talen/Downloads/SDL_Base_Project/SDL_Base_Project/b.png");
     SDL_Texture* texGarage = SDL_CreateTextureFromSurface(renderer, s0);
     SDL_DestroySurface(s0);
 
-    SDL_Surface* s1 = IMG_Load("C:/Users/talen/Downloads/SDL_Base_Project/SDL_Base_Project/Screenshot (93).png");
+    SDL_Surface* s1 = IMG_Load("C:/Users/talen/Downloads/SDL_Base_Project/SDL_Base_Project/c.png");
     SDL_Texture* texRoom = SDL_CreateTextureFromSurface(renderer, s1);
     SDL_DestroySurface(s1);
 
-    SDL_Surface* s2 = IMG_Load("C:/Users/talen/Downloads/SDL_Base_Project/SDL_Base_Project/YOUR_THIRD_IMAGE.png");
+    SDL_Surface* s2 = IMG_Load("C:/Users/talen/Downloads/SDL_Base_Project/SDL_Base_Project/d.png");
     SDL_Texture* texThird = SDL_CreateTextureFromSurface(renderer, s2);
     SDL_DestroySurface(s2);
 
