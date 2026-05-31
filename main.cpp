@@ -2,44 +2,60 @@
 #include <SDL3/SDL_main.h>
 #include <SDL3_image/SDL_image.h>
 
+void DrawFrame(SDL_Renderer* renderer, SDL_FRect img)
+{
+    //outer dark gold shadow
+    SDL_SetRenderDrawColor(renderer, 120, 90, 20, 255);
+    SDL_FRect f1 = { img.x - 14, img.y - 14, img.w + 28, img.h + 28 };
+    SDL_RenderFillRect(renderer, &f1);
+
+    //bright gold
+    SDL_SetRenderDrawColor(renderer, 212, 175, 55, 255);
+    SDL_FRect f2 = { img.x - 11, img.y - 11, img.w + 22, img.h + 22 };
+    SDL_RenderFillRect(renderer, &f2);
+
+    //light gold highlight
+    SDL_SetRenderDrawColor(renderer, 240, 210, 90, 255);
+    SDL_FRect f3 = { img.x - 7, img.y - 7, img.w + 14, img.h + 14 };
+    SDL_RenderFillRect(renderer, &f3);
+
+    //inner dark edge
+    SDL_SetRenderDrawColor(renderer, 80, 60, 10, 255);
+    SDL_FRect f4 = { img.x - 3, img.y - 3, img.w + 6, img.h + 6 };
+    SDL_RenderFillRect(renderer, &f4);
+}
+
 int main(int argc, char* argv[])
 {
     SDL_Init(SDL_INIT_VIDEO);
-    SDL_Window* window = SDL_CreateWindow("SDL3 Gallery", 800, 600, 0);
+    SDL_Window* window = SDL_CreateWindow("Window", 800, 600, 0);
     SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
 
     // --- Load background brick texture ---
-    SDL_Surface* sBg = IMG_Load("C:/Users/talen/Downloads/SDL_Base_Project/SDL_Base_Project/a.png");
+    SDL_Surface* sBg = IMG_Load("img/a.png");
     SDL_Texture* texBg = SDL_CreateTextureFromSurface(renderer, sBg);
     SDL_DestroySurface(sBg);
 
     // --- Load image textures ---
-    SDL_Surface* s0 = IMG_Load("C:/Users/talen/Downloads/SDL_Base_Project/SDL_Base_Project/b.png");
+    SDL_Surface* s0 = IMG_Load("img/b.png");
     SDL_Texture* texGarage = SDL_CreateTextureFromSurface(renderer, s0);
     SDL_DestroySurface(s0);
 
-    SDL_Surface* s1 = IMG_Load("C:/Users/talen/Downloads/SDL_Base_Project/SDL_Base_Project/c.png");
+    SDL_Surface* s1 = IMG_Load("img/c.png");
     SDL_Texture* texRoom = SDL_CreateTextureFromSurface(renderer, s1);
     SDL_DestroySurface(s1);
 
-    SDL_Surface* s2 = IMG_Load("C:/Users/talen/Downloads/SDL_Base_Project/SDL_Base_Project/d.png");
+    SDL_Surface* s2 = IMG_Load("img/d.png");
     SDL_Texture* texThird = SDL_CreateTextureFromSurface(renderer, s2);
     SDL_DestroySurface(s2);
 
-    
+
     float tileW = 0, tileH = 0;
     SDL_GetTextureSize(texBg, &tileW, &tileH);
-
-    const float B = 8.0f;
 
     SDL_FRect img0 = { 30,  80, 340, 210 };  // top-left
     SDL_FRect img1 = { 430,  80, 340, 210 };  // top-right
     SDL_FRect img2 = { 230, 340, 340, 210 };  // bottom-center
-
-    // --- Gold frame rects ---
-    SDL_FRect frame0 = { img0.x - B, img0.y - B, img0.w + B * 2, img0.h + B * 2 };
-    SDL_FRect frame1 = { img1.x - B, img1.y - B, img1.w + B * 2, img1.h + B * 2 };
-    SDL_FRect frame2 = { img2.x - B, img2.y - B, img2.w + B * 2, img2.h + B * 2 };
 
     SDL_Event event;
     bool running = true;
@@ -49,7 +65,6 @@ int main(int argc, char* argv[])
             if (event.type == SDL_EVENT_KEY_DOWN && event.key.key == SDLK_ESCAPE) running = false;
         }
 
-        
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
         for (float y = 0; y < 600; y += tileH) {
@@ -59,20 +74,17 @@ int main(int argc, char* argv[])
             }
         }
 
-      
+    
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, 0, 80, 0, 60);
         SDL_FRect fullscreen = { 0, 0, 800, 600 };
         SDL_RenderFillRect(renderer, &fullscreen);
 
-        // --- Draw gold frames ---
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
-        SDL_SetRenderDrawColor(renderer, 212, 175, 55, 255);
-        SDL_RenderFillRect(renderer, &frame0);
-        SDL_RenderFillRect(renderer, &frame1);
-        SDL_RenderFillRect(renderer, &frame2);
+        DrawFrame(renderer, img0);
+        DrawFrame(renderer, img1);
+        DrawFrame(renderer, img2);
 
-        
         SDL_RenderTexture(renderer, texGarage, NULL, &img0);
         SDL_RenderTexture(renderer, texRoom, NULL, &img1);
         SDL_RenderTexture(renderer, texThird, NULL, &img2);
@@ -80,7 +92,6 @@ int main(int argc, char* argv[])
         SDL_RenderPresent(renderer);
     }
 
-   
     SDL_DestroyTexture(texBg);
     SDL_DestroyTexture(texGarage);
     SDL_DestroyTexture(texRoom);
