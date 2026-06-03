@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
     SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
 
     // --- Load background brick texture ---
-    SDL_Surface* sBg = IMG_Load("img/a5.png");
+    SDL_Surface* sBg = IMG_Load("img/a1.png");
     SDL_Texture* texBg = SDL_CreateTextureFromSurface(renderer, sBg);
     SDL_DestroySurface(sBg);
 
